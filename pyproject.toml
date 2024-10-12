@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "abrasci"
+version = "0.1.0"
+description = ""
+authors = ["ivansantiagojr <ivansantiago.junior@gmail.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12.6"
+fastapi = {extras = ["standard"], version = "^0.115.0"}
+sqlalchemy = "^2.0.35"
+pydantic-settings = "^2.5.2"
+alembic = "^1.13.3"
+psycopg = {extras = ["binary"], version = "^3.2.3"}
+jinja2 = "^3.1.4"
+fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.13.0"
+pytest = "^8.3.3"
+pytest-cov = "^5.0.0"
+ruff = "^0.6.9"
+httpx = "^0.27.2"
+mypy = "^1.11.2"
+djlint = "^1.35.2"
+
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+[tool.mypy]
+plugins = ["pydantic.mypy", 'sqlalchemy.ext.mypy.plugin']
+
+[tool.djlint]
+profile="jinja"
+format_css=true
+format_js=true
+
+[tool.taskipy.tasks]
+lint = 'ruff check .; ruff check . --diff'
+format = 'ruff check . --fix; ruff format .'
+format_html = 'djlint src/templates src/static --reformat --format-css --format-js'
+run = 'fastapi dev src/main.py'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=src -vv'
+post_test = 'coverage html'
+mypy = "mypy . --ignore-missing-imports --check-untyped-defs"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
