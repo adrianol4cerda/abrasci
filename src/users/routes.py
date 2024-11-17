@@ -14,10 +14,11 @@ from fastapi_users.authentication import (
 from fastapi_users.db import BaseUserDatabase
 
 from src.database import User, get_user_db
+from src.settings import Settings
 
 cookie_transport = CookieTransport(cookie_max_age=3600)
 
-SECRET: Final = 'secret'
+SECRET: Final = Settings().SECRET_KEY
 
 
 def get_jwt_strategy() -> JWTStrategy:
