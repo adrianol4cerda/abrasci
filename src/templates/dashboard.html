@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="dashboard">
+        <h1>Dashboard</h1>
+        <p>Olá, {{ user.full_name }}!</p>
+        {% if user.is_superuser == true %}
+            <button onclick="window.location.href='/register'">Novo Usuário</button>
+            <button onclick="window.location.href='/usuarios'">Listar Usuários</button>
+        {% endif %}
+        <button onclick="window.location.href='/posts/novo'">Novo Paciente</button>
+        <button onclick="window.location.href='/posts/novo'">Listar Pacientes</button>
+        <!-- logout button -->
+        <button onclick="logout()">Sair</button>
+    </section>
+    <script>
+        function logout() {
+            fetch("/logout", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                    },
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        console.log("Logged out successfully");
+                        window.location.href = "/";
+                    } else {
+                        console.error("Logout failed:", response.statusText);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error during logout:", error);
+                });
+        }
+    </script>
+{% endblock content %}

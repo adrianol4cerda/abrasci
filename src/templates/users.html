@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="user-listing">
+        <h1>Usuários</h1>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Administrador</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.full_name }}</td>
+                    <td>{{ "Sim" if user.is_superuser else "Não" }}</td>
+                    <td>
+                        <button onclick="makeSuperuser({{ user.id }}, '{{ user.full_name }}')">Promover</button>
+                    </td>
+                    <td>
+                        <button onclick="confirmDelete({{ user.id }}, '{{ user.full_name }}')">Deletar</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+    <script>
+        function makeSuperuser(userID, fullName) {
+            fetch(`users/${userID}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        is_superuser: true,
+                        role: "admin",
+                        full_name: fullName,
+                    }),
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        console.log(`User ${userID} has been made a superuser`);
+                        // Optionally, you can reload the page here
+                        // window.location.reload();
+                    } else {
+                        console.error(`Failed to make user ${userID} a superuser`);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error making user a superuser:", error);
+                });
+        }
+
+        function confirmDelete(userID, userFullName) {
+            if (
+                confirm(
+                    `Tem certeza que deseja deletar o paciente "${userFullName}"?`,
+                )
+            ) {
+                window.location.href = `/usuarios/deletar/${userID}`;
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="patient-listing">
+        <h1>Pacientes</h1>
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Responsável</th>
+                <th>Telefone do Responsável</th>
+                <th>Pontos AMPI</th>
+                <th>Ações</th>
+            </tr>
+            {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.full_name }}</td>
+                    <td>{{ patient.guardian_name }}</td>
+                    <td>{{ patient.guardian_phone }}</td>
+                    <td>{{ patient.points }}</td>
+                    <td>
+                        <a href="/pacientes/editar/{{ patient.id }}">Editar</a>
+                        <button onclick="confirmDelete('{{ patient.full_name }}', '{{ patient.id }}')">Deletar</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+    <script>
+        function confirmDelete(patientName, patientID) {
+            if (
+                confirm(
+                    `Tem certeza que deseja deletar o paciente "${patientName}"?`,
+                )
+            ) {
+                window.location.href = `/pacientes/deletar/${patientID}`;
+            }
+        }
+    </script>
+{% endblock %}

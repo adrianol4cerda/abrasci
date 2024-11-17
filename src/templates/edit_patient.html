@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Edit Avaliação Multidimensional da Pessoa Idosa na Atenção Básica (AMPI-AB)</h1>
+    <form id="ampi-ab-form"
+          action="/pacientes/editar/{{ patient.id }}"
+          method="post">
+        <!-- Nome Completo -->
+        <div class="question">
+            <label for="nome-completo">Nome Completo:</label>
+            <input type="text"
+                   id="nome-completo"
+                   name="nome_completo"
+                   value="{{ patient.full_name }}"
+                   required />
+        </div>
+        <!-- Nome Social -->
+        <div class="question">
+            <label for="nome-social">Nome Social:</label>
+            <input type="text"
+                   id="nome-social"
+                   name="nome_social"
+                   value="{{ patient.social_name or '' }}" />
+        </div>
+        <!-- Nome do Responsável -->
+        <div class="question">
+            <label for="nome-responsavel">Nome do Responsável:</label>
+            <input type="text"
+                   id="nome-responsavel"
+                   name="nome_responsavel"
+                   value="{{ patient.guardian_name }}"
+                   required />
+        </div>
+        <!-- Telefone do Responsável -->
+        <div class="question">
+            <label for="telefone-resp">Telefone do Responsável:</label>
+            <input type="tel"
+                   id="telefone-resp"
+                   name="telefone_resp"
+                   value="{{ patient.guardian_phone }}"
+                   required />
+        </div>
+        <!-- Idade -->
+        <div class="question">
+            <label for="idade">1. Qual é a idade do paciente?</label>
+            <input type="number"
+                   id="idade"
+                   name="idade"
+                   value="{{ patient.idade }}"
+                   min="0"
+                   required>
+        </div>
+        <!-- Auto percepção de saúde -->
+        <div class="question">
+            <label for="auto-percepcao">2. Como você percebe sua saúde atualmente?</label>
+            <input type="radio" id="muito-boa" name="auto-percepcao" value="Muito boa" {{ 'checked' if patient.auto_percepcao == "Muito boa" else '' }}>
+            <label for="muito-boa">Muito boa</label>
+            <br>
+            <input type="radio" id="boa" name="auto-percepcao" value="Boa" {{ 'checked' if patient.auto_percepcao == "Boa" else '' }}>
+            <label for="boa">Boa</label>
+            <br>
+            <input type="radio" id="regular" name="auto-percepcao" value="Regular" {{ 'checked' if patient.auto_percepcao == "Regular" else '' }}>
+            <label for="regular">Regular</label>
+            <br>
+            <input type="radio" id="ruim" name="auto-percepcao" value="Ruim" {{ 'checked' if patient.auto_percepcao == "Ruim" else '' }}>
+            <label for="ruim">Ruim</label>
+            <br>
+            <input type="radio" id="muito-ruim" name="auto-percepcao" value="Muito ruim" {{ 'checked' if patient.auto_percepcao == "Muito ruim" else '' }}>
+            <label for="muito-ruim">Muito ruim</label>
+        </div>
+        <!-- Suporte social -->
+        <div class="question">
+            <label for="suporte-social">3. O paciente mora sozinho?</label>
+            <input type="radio" id="sim-suporte" name="suporte-social" value="Sim" {{ 'checked' if patient.suporte_social == "Sim" else '' }}>
+            <label for="sim-suporte">Sim</label>
+            <br>
+            <input type="radio" id="nao-suporte" name="suporte-social" value="Não" {{ 'checked' if patient.suporte_social == "Não" else '' }}>
+            <label for="nao-suporte">Não</label>
+        </div>
+        <!-- Condições crônicas -->
+        <div class="question">
+            <label for="condicoes-cronicas">
+                4. O paciente possui alguma das seguintes condições crônicas? (Marque todas as que se aplicam)
+            </label>
+            <ul>
+                {% set all_conditions = [
+                    "Diabetes Mellitus",
+                    "Hipertensão Arterial Sistêmica",
+                    "Acidente Vascular Encefálico",
+                    "Doença Arterial Coronariana",
+                    "Doenças Vasculares",
+                    "Lesão por Pressão",
+                    "Anemia",
+                    "Asma",
+                    "Doença Pulmonar Obstrutiva Crônica",
+                    "Úlcera Péptica",
+                    "Osteoartrose",
+                    "Obesidade",
+                    "Neoplasia",
+                    "Demência",
+                    "Epilepsia",
+                    "Depressão",
+                    "Doença de Parkinson",
+                    "DST/HIV/AIDS",
+                    "Amputação de Membro",
+                    "Tabagismo/Alcoolismo/Outras Drogas",
+                    "Dor Crônica"
+                ] %}
+                {% for condition in all_conditions %}
+                    <li>
+                        <input type="checkbox"
+                               id="{{ condition }}"
+                               name="condicoes-cronicas"
+                               value="{{ condition }}"
+                               {% if patient.condicoes_cronicas is defined and condition in patient.condicoes_cronicas.split(', ') %}checked{% endif %}>
+                        <label for="{{ condition }}">{{ condition }}</label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Medicamentos -->
+        <div class="question">
+            <label for="medicamentos">5. Quantos medicamentos o paciente utiliza regularmente?</label>
+            <input type="number"
+                   id="medicamentos"
+                   name="medicamentos"
+                   value="{{ patient.medicamentos }}"
+                   min="0"
+                   required>
+        </div>
+        <!-- Internações hospitalares -->
+        <div class="question">
+            <label for="internacoes">6. Quantas vezes o paciente foi internado nos últimos 12 meses?</label>
+            <input type="number"
+                   id="internacoes"
+                   name="internacoes"
+                   value="{{ patient.internacoes }}"
+                   min="0"
+                   required>
+        </div>
+        <!-- Quedas -->
+        <div class="question">
+            <label for="quedas">7. O paciente sofreu alguma queda nos últimos 12 meses?</label>
+            <input type="radio" id="sim-quedas" name="quedas" value="Sim" {{ 'checked' if patient.quedas == "Sim" else '' }}>
+            <label for="sim-quedas">Sim</label>
+            <br>
+            <input type="radio" id="nao-quedas" name="quedas" value="Não" {{ 'checked' if patient.quedas == "Não" else '' }}>
+            <label for="nao-quedas">Não</label>
+        </div>
+        <!-- Visão -->
+        <div class="question">
+            <label for="visao">8. O paciente apresenta alterações na visão, mesmo com uso de óculos?</label>
+            <input type="radio" id="sim-visao" name="visao" value="Sim" {{ 'checked' if patient.visao == "Sim" else '' }}>
+            <label for="sim-visao">Sim</label>
+            <br>
+            <input type="radio" id="nao-visao" name="visao" value="Não" {{ 'checked' if patient.visao == "Não" else '' }}>
+            <label for="nao-visao">Não</label>
+        </div>
+        <!-- Audição -->
+        <div class="question">
+            <label for="audicao">9. O paciente apresenta dificuldades auditivas?</label>
+            <input type="radio" id="sim-audicao" name="audicao" value="Sim" {{ 'checked' if patient.audicao == "Sim" else '' }}>
+            <label for="sim-audicao">Sim</label>
+            <br>
+            <input type="radio" id="nao-audicao" name="audicao" value="Não" {{ 'checked' if patient.audicao == "Não" else '' }}>
+            <label for="nao-audicao">Não</label>
+        </div>
+        <!-- Limitação física -->
+        <div class="question">
+            <label for="limitacao-fisica">10. O paciente apresenta alguma limitação física?</label>
+            <input type="radio" id="sim-limitacao-fisica" name="limitacao-fisica" value="Sim" {{ 'checked' if patient.limitacao_fisica == "Sim" else '' }}>
+            <label for="sim-limitacao-fisica">Sim</label>
+            <br>
+            <input type="radio" id="nao-limitacao-fisica" name="limitacao-fisica" value="Não" {{ 'checked' if patient.limitacao_fisica == "Não" else '' }}>
+            <label for="nao-limitacao-fisica">Não</label>
+        </div>
+        <div class="question">
+            <label for="cognicao">11. O paciente apresenta alterações cognitivas ou risco de demência?</label>
+            <input type="radio"
+                   id="sim-cognicao"
+                   name="cognicao"
+                   value="Sim"
+                   {% if patient.cognicao == "Sim" %}checked{% endif %}
+                   required>
+            <label for="sim-cognicao">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-cognicao"
+                   name="cognicao"
+                   value="Não"
+                   {% if patient.cognicao == "Não" %}checked{% endif %}
+                   required>
+            <label for="nao-cognicao">Não</label>
+        </div>
+        <!-- Humor -->
+        <div class="question">
+            <label for="humor">12. O paciente apresenta sinais de depressão ou alterações de humor?</label>
+            <input type="radio" id="sim-humor" name="humor" value="Sim" {{ 'checked' if patient.humor == "Sim" else '' }}>
+            <label for="sim-humor">Sim</label>
+            <br>
+            <input type="radio" id="nao-humor" name="humor" value="Não" {{ 'checked' if patient.humor == "Não" else '' }}>
+            <label for="nao-humor">Não</label>
+        </div>
+        <!-- Atividades básicas de vida diária -->
+        <div class="question">
+            <label for="atividades-basicas">13. O paciente apresenta dificuldades nas atividades básicas de vida diária?</label>
+            <input type="radio" id="sim-atividades-basicas" name="atividades-basicas" value="Sim" {{ 'checked' if patient.atividades_basicas == "Sim" else '' }}>
+            <label for="sim-atividades-basicas">Sim</label>
+            <br>
+            <input type="radio" id="nao-atividades-basicas" name="atividades-basicas" value="Não" {{ 'checked' if patient.atividades_basicas == "Não" else '' }}>
+            <label for="nao-atividades-basicas">Não</label>
+        </div>
+        <!-- Pergunta 14: Atividades instrumentais de vida diária -->
+        <div class="question">
+            <label for="atividades-instrumentais">
+                14. O paciente apresenta dificuldades nas atividades instrumentais de vida diária?
+            </label>
+            <input type="radio" id="sim-atividades-instrumentais" name="atividades-instrumentais" value="Sim" required {{ 'checked' if patient.atividades_instrumentais == 'Sim' else ''}}>
+            <label for="sim-atividades-instrumentais">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-atividades-instrumentais"
+                   name="atividades-instrumentais"
+                   value="Não"
+                   required>
+            <label for="nao-atividades-instrumentais">Não</label>
+        </div>
+        <!-- Pergunta 15: Incontinência -->
+        <div class="question">
+            <label for="incontinencia">15. O paciente apresenta incontinência urinária e/ou fecal?</label>
+            <input type="radio"
+                   id="sim-incontinencia"
+                   name="incontinencia"
+                   value="Sim"
+                   {% if patient.incontinencia == "Sim" %}checked{% endif %}
+                   required>
+            <label for="sim-incontinencia">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-incontinencia"
+                   name="incontinencia"
+                   value="Não"
+                   {% if patient.incontinencia == "Não" %}checked{% endif %}
+                   required>
+            <label for="nao-incontinencia">Não</label>
+        </div>
+        <!-- Pergunta 16: Perda de peso não intencional -->
+        <div class="question">
+            <label for="perda-peso">16. O paciente apresentou perda de peso não intencional nos últimos 3 meses?</label>
+            <input type="radio"
+                   id="sim-perda-peso"
+                   name="perda-peso"
+                   value="Sim"
+                   {% if patient.perda_peso == "Sim" %}checked{% endif %}
+                   required>
+            <label for="sim-perda-peso">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-perda-peso"
+                   name="perda-peso"
+                   value="Não"
+                   {% if patient.perda_peso == "Não" %}checked{% endif %}
+                   required>
+            <label for="nao-perda-peso">Não</label>
+        </div>
+        <!-- Pergunta 17: Abandono -->
+        <div class="question">
+            <label for="abandono">17. Há risco de negligência ou abandono do paciente?</label>
+            <input type="radio"
+                   id="sim-abandono"
+                   name="abandono"
+                   value="Sim"
+                   {% if patient.abandono == "Sim" %}checked{% endif %}
+                   required>
+            <label for="sim-abandono">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-abandono"
+                   name="abandono"
+                   value="Não"
+                   {% if patient.abandono == "Não" %}checked{% endif %}
+                   required>
+            <label for="nao-abandono">Não</label>
+        </div>
+        <!-- Observações adicionais -->
+        <div class="question">
+            <label for="observacoes">
+                18. Há alguma observação adicional que o profissional de saúde gostaria de fazer sobre este paciente?
+            </label>
+            <textarea id="observacoes" name="observacoes" rows="5" cols="50">{{ patient.observacoes }}</textarea>
+        </div>
+        <!-- Botão de submissão -->
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('ampi-ab-form');
+
+            function prepareDataForApi(fullName, socialName, guardianName, guardianPhone, age, selfPerception, socialSupport, chronicConditions, medications, hospitalizations, falls, vision, hearing, physicalLimitation, cognition, mood, dailyBasicActivities, instrumentalDailyActivities, urinaryIncontinence, unintentionalWeightLoss, abandonmentRisk, considerations, points) {
+                return {
+                    full_name: fullName,
+                    social_name: socialName || null,
+                    guardian_name: guardianName,
+                    guardian_phone: guardianPhone,
+                    idade: age,
+                    auto_percepcao: selfPerception,
+                    suporte_social: socialSupport,
+                    condicoes_cronicas: chronicConditions.join(', ') || '',
+                    medicamentos: parseInt(medications),
+                    internacoes: parseInt(hospitalizations),
+                    quedas: falls,
+                    visao: vision,
+                    audicao: hearing,
+                    limitacao_fisica: physicalLimitation,
+                    cognicao: cognition,
+                    humor: mood,
+                    atividades_basicas: dailyBasicActivities,
+                    atividades_instrumentais: instrumentalDailyActivities,
+                    incontinencia: urinaryIncontinence,
+                    perda_peso: unintentionalWeightLoss,
+                    abandono: abandonmentRisk,
+                    observacoes: considerations,
+                    points: points
+                };
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Get values from form elements
+                const nomeCompleto = document.getElementById('nome-completo').value;
+                const nomeSocial = document.getElementById('nome-social').value;
+                const nomeResponsavel = document.getElementById('nome-responsavel').value;
+                const telefoneResponsavel = document.getElementById('telefone-resp').value;
+                const idade = parseFloat(document.getElementById('idade').value);
+                const autoPercepcao = document.querySelector('input[name="auto-percepcao"]:checked').value;
+                const suporteSocial = document.querySelector('input[name="suporte-social"]:checked').value;
+                const condicoesCronicas = Array.from(document.querySelectorAll('input[name="condicoes-cronicas"]:checked')).map(el => el.value);
+                const medicamentos = document.getElementById('medicamentos').value;
+                const internacoes = document.getElementById('internacoes').value;
+                const quedas = document.querySelector('input[name="quedas"]:checked').value;
+                const visao = document.querySelector('input[name="visao"]:checked').value;
+                const audicao = document.querySelector('input[name="audicao"]:checked').value;
+                const limitacaoFisica = document.querySelector('input[name="limitacao-fisica"]:checked').value;
+                const cognicao = document.querySelector('input[name="cognicao"]:checked').value;
+                const humor = document.querySelector('input[name="humor"]:checked').value;
+                const atividadesBasicas = document.querySelector('input[name="atividades-basicas"]:checked').value;
+                const atividadesInstrumentais = document.querySelector('input[name="atividades-instrumentais"]:checked').value;
+                const urinaryIncontinence = document.querySelector('input[name="incontinencia"]:checked').value;
+                const unintentionalWeightLoss = document.querySelector('input[name="perda-peso"]:checked').value;
+                const abandonmentRisk = document.querySelector('input[name="abandono"]:checked').value;
+                const considerations = document.getElementById('observacoes').value;
+
+                const points = calculatePoints();
+
+                const patientData = prepareDataForApi(
+                    nomeCompleto,
+                    nomeSocial,
+                    nomeResponsavel,
+                    telefoneResponsavel,
+                    idade,
+                    autoPercepcao,
+                    suporteSocial,
+                    condicoesCronicas,
+                    medicamentos,
+                    internacoes,
+                    quedas,
+                    visao,
+                    audicao,
+                    limitacaoFisica,
+                    cognicao,
+                    humor,
+                    atividadesBasicas,
+                    atividadesInstrumentais,
+                    urinaryIncontinence,
+                    unintentionalWeightLoss,
+                    abandonmentRisk,
+                    considerations,
+                    points
+                );
+
+                try {
+                    if (confirm("Confirmar a atualização do paciente?")) {
+
+                        const response = await fetch('/pacientes/editar/{{ patient.id }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(patientData),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        const result = await response.json();
+                        console.log('Success:', result);
+                        window.location.href = "/pacientes"
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Ocorreu um erro ao enviar os dados.');
+                }
+            });
+        });
+    </script>
+{% endblock content %}

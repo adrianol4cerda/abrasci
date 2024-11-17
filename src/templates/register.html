@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Register</h1>
+        <form id="register-form" method="post">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div>
+                <label for="full_name">Nome completo:</label>
+                <input type="text" id="full_name" name="full_name" required />
+            </div>
+            <div>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>
+            Já tem uma conta? <a href="/">Faça o login</a>
+        </p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("register-form");
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                fetch(form.action, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            email: document.getElementById("email").value,
+                            full_name: document.getElementById("full_name").value,
+                            password: document.getElementById("password").value,
+                            is_active: true,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then((response) => {
+                        response.json();
+                    })
+                    .then((data) => {
+                        console.log(data);
+                        showSuccessAlert();
+                    })
+                    .catch((error) => console.error("Error:", error));
+            });
+
+            function showSuccessAlert() {
+                window.alert(
+                    "Usuário registrado com sucesso!",
+                );
+                window.location.href = "/";
+            }
+
+            function showErrorAlert(message) {
+                window.alert(`Error: ${message}`);
+            }
+        });
+    </script>
+{% endblock %}

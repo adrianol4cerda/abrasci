@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm" action="/login" method="post">
+            <div>
+                <label for="username">email:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document
+                .getElementById("loginForm")
+                .addEventListener("submit", async function(event) {
+                    event.preventDefault();
+
+                    // Submit the form
+                    const formData = new FormData(this);
+                    const response = await fetch("/login", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    // Check if the login was successful
+                    if (!response.ok) {
+                        console.error("Login failed:", response.statusText);
+                    } else {
+                        console.log("Logged in successfully");
+                        // Reload the page after successful submission
+                        window.location.reload(true);
+                    }
+                });
+        });
+    </script>
+{% endblock %}
