@@ -3,7 +3,10 @@ name = "abrasci"
 version = "0.1.0"
 description = ""
 authors = ["ivansantiagojr <ivansantiago.junior@gmail.com>"]
-package-mode = false
+packages = [{include = "src"}]
+
+[tool.poetry.scripts]
+admin = "src.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.13.0"
