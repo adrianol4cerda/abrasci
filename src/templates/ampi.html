@@ -496,7 +496,8 @@
             document.getElementById('ampi-ab-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const points = calculatePoints();
-                document.getElementById('result').textContent = `Pontuação total: ${points}`;
+                const state = points <= 5 ? 'Saudável' : points <= 10 ? 'Pré-Frágil' : 'Frágil'
+                document.getElementById('result').textContent = `Paciente ${state}. Pontuação: ${points}`;
             });
         </script>
     {% endblock %}

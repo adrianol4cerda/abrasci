@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Informações do Paciente</h1>
+    <div id="patient-info">
+        <div class="info-section">
+            <h2>Dados Pessoais</h2>
+            <ul>
+                <li>
+                    <strong>Nome Completo:</strong> {{ patient.full_name }}
+                </li>
+                <li>
+                    <strong>Nome Social:</strong> {{ patient.social_name | default("N/A") }}
+                </li>
+                <li>
+                    <strong>Idade:</strong> {{ patient.idade }}
+                </li>
+            </ul>
+        </div>
+        <div class="info-section">
+            <h2>Responsável</h2>
+            <ul>
+                <li>
+                    <strong>Nome do Responsável:</strong> {{ patient.guardian_name }}
+                </li>
+                <li>
+                    <strong>Telefone do Responsável:</strong> {{ patient.guardian_phone }}
+                </li>
+            </ul>
+        </div>
+        <div class="info-section">
+            <h2>Avaliação Multidimensional</h2>
+            <ul>
+                <li>
+                    <strong>Auto Percepção de Saúde:</strong> {{ patient.auto_percepcao }}
+                </li>
+                <li>
+                    <strong>Suporte Social:</strong> {{ patient.suporte_social }}
+                </li>
+                <li>
+                    <strong>Condições Crônicas:</strong> {{ patient.condicoes_cronicas }}
+                </li>
+                <li>
+                    <strong>Número de Medicamentos:</strong> {{ patient.medicamentos }}
+                </li>
+                <li>
+                    <strong>Internações nos últimos 12 meses:</strong> {{ patient.internacoes }}
+                </li>
+                <li>
+                    <strong>Quedas nos últimos 12 meses:</strong> {{ patient.quedas }}
+                </li>
+                <li>
+                    <strong>Alterações na Visão:</strong> {{ patient.visao }}
+                </li>
+                <li>
+                    <strong>Dificuldades Auditivas:</strong> {{ patient.audicao }}
+                </li>
+                <li>
+                    <strong>Limitação Física:</strong> {{ patient.limitacao_fisica }}
+                </li>
+                <li>
+                    <strong>Alterações Cognitivas:</strong> {{ patient.cognicao }}
+                </li>
+                <li>
+                    <strong>Alterações de Humor:</strong> {{ patient.humor }}
+                </li>
+                <li>
+                    <strong>Dificuldades nas Atividades Básicas:</strong> {{ patient.atividades_basicas }}
+                </li>
+                <li>
+                    <strong>Dificuldades nas Atividades Instrumentais:</strong> {{ patient.atividades_instrumentais }}
+                </li>
+                <li>
+                    <strong>Incontinência Urinária/Fecal:</strong> {{ patient.incontinencia }}
+                </li>
+                <li>
+                    <strong>Perda de Peso Não Intencional:</strong> {{ patient.perda_peso }}
+                </li>
+                <li>
+                    <strong>Risco de Abandono:</strong> {{ patient.abandono }}
+                </li>
+            </ul>
+        </div>
+        <div class="info-section">
+            <h2>Avaliação</h2>
+            <p>Pontuação: {{ patient.points }} pontos</p>
+            {% if patient.points <= 5 %}
+                <p>Paciente Saudável</p>
+            {% elif patient.points <= 10 %}
+                <p>Paciente Pré-Frágil</p>
+            {% else %}
+                <p>Paciente Frágil</p>
+            {% endif %}
+        </div>
+        {% if patient.observacoes %}
+            <div class="info-section">
+                <h2>Observações Adicionais</h2>
+                <p>{{ patient.observacoes }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

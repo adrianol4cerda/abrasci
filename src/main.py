@@ -183,3 +183,17 @@ async def update_patient(
     await session.commit()
 
     return {'message': 'ok'}
+
+
+@app.get('/paciente/{id}')
+async def get_patient_page(
+    id: int,
+    request: Request,
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    user: CurrentUserDep,
+):
+    patient = await session.scalar(select(Patient).where(Patient.id == id))
+
+    return templates.TemplateResponse(
+        'patient.html', {'request': request, 'patient': patient}
+    )

@@ -18,6 +18,7 @@
                     <td>{{ patient.points }}</td>
                     <td>
                         <a href="/pacientes/editar/{{ patient.id }}">Editar</a>
+                        <a href="/paciente/{{ patient.id }}">Visualizar</a>
                         <button onclick="confirmDelete('{{ patient.full_name }}', '{{ patient.id }}')">Deletar</button>
                     </td>
                 </tr>
