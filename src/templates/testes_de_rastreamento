@@ -1,1 +1,504 @@
 
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Testes de Rastreamento</h1>
+    <form id="rastreamento-form">
+        <!-- Additional fields -->
+        <div class="question">
+            <label for="nome-completo">Nome Completo:</label>
+            <input type="text" id="nome-completo" name="nome_completo" required>
+        </div>
+        <div class="question">
+            <label for="nome-social">Nome Social:</label>
+            <input type="text" id="nome-social" name="nome_social">
+        </div>
+        <div class="question">
+            <label for="nome-responsavel">Nome do Responsável:</label>
+            <input type="text" id="nome-responsavel" name="nome_responsavel">
+        </div>
+        <div class="question">
+            <label for="telefone-resp">Telefone do Responsável:</label>
+            <input type="tel" id="telefone-resp" name="telefone_resp">
+        </div>
+        <!-- Pergunta 1: Idade -->
+        <div class="question">
+            <label for="idade">1. Qual é a idade do paciente?</label>
+            <input type="number" id="idade" name="idade" required>
+        </div>
+        <!-- Pergunta 2: Auto percepção de saúde -->
+        <div class="question">
+            <label for="auto-percepcao">2. Como você percebe sua saúde atualmente?</label>
+            <input type="radio"
+                   id="muito-boa"
+                   name="auto-percepcao"
+                   value="Muito boa"
+                   required>
+            <label for="muito-boa">Muito boa</label>
+            <br>
+            <input type="radio" id="boa" name="auto-percepcao" value="Boa" required>
+            <label for="boa">Boa</label>
+            <br>
+            <input type="radio"
+                   id="regular"
+                   name="auto-percepcao"
+                   value="Regular"
+                   required>
+            <label for="regular">Regular</label>
+            <br>
+            <input type="radio" id="ruim" name="auto-percepcao" value="Ruim" required>
+            <label for="ruim">Ruim</label>
+            <br>
+            <input type="radio"
+                   id="muito-ruim"
+                   name="auto-percepcao"
+                   value="Muito ruim"
+                   required>
+            <label for="muito-ruim">Muito ruim</label>
+        </div>
+        <!-- Pergunta 3: Suporte social -->
+        <div class="question">
+            <label for="suporte-social">3. O paciente mora sozinho?</label>
+            <input type="radio"
+                   id="sim-suporte"
+                   name="suporte-social"
+                   value="Sim"
+                   required>
+            <label for="sim-suporte">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-suporte"
+                   name="suporte-social"
+                   value="Não"
+                   required>
+            <label for="nao-suporte">Não</label>
+        </div>
+        <!-- Pergunta 4: Condições crônicas -->
+        <div class="question">
+            <label for="condicoes-cronicas">
+                4. O paciente possui alguma das seguintes condições crônicas? (Marque todas as que se aplicam)
+            </label>
+            <ul>
+                <li>
+                    <input type="checkbox"
+                           id="diabetes-mellitus"
+                           name="condicoes-cronicas"
+                           value="Diabetes Mellitus">
+                    <label for="diabetes-mellitus">Diabetes Mellitus</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="hipertensao-articular-sistematica"
+                           name="condicoes-cronicas"
+                           value="Hipertensão Arterial Sistêmica">
+                    <label for="hipertensao-articular-sistematica">Hipertensão Arterial Sistêmica</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="acidente-vascular-encefalico"
+                           name="condicoes-cronicas"
+                           value="Acidente Vascular Encefálico">
+                    <label for="acidente-vascular-encefalico">Acidente Vascular Encefálico</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="doenca-arterial-coronariana"
+                           name="condicoes-cronicas"
+                           value="Doença Arterial Coronariana">
+                    <label for="doenca-arterial-coronariana">Doença Arterial Coronariana</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="doenças-vasculares"
+                           name="condicoes-cronicas"
+                           value="Doenças Vasculares">
+                    <label for="doenças-vasculares">Doenças Vasculares</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="lesão-porpressão"
+                           name="condicoes-cronicas"
+                           value="Lesão por Pressão">
+                    <label for="lesão-porpressão">Lesão por Pressão</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="anemia" name="condicoes-cronicas" value="Anemia">
+                    <label for="anemia">Anemia</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="asma" name="condicoes-cronicas" value="Asma">
+                    <label for="asma">Asma</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="doenca-pulmonar-obstrutiva-crônica"
+                           name="condicoes-cronicas"
+                           value="Doença Pulmonar Obstrutiva Crônica">
+                    <label for="doenca-pulmonar-obstrutiva-crônica">Doença Pulmonar Obstrutiva Crônica</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="úlcera-péptica"
+                           name="condicoes-cronicas"
+                           value="Úlcera Péptica">
+                    <label for="úlcera-péptica">Úlcera Péptica</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="osteoaartrose"
+                           name="condicoes-cronicas"
+                           value="Osteoartrose">
+                    <label for="osteoaartrose">Osteoartrose</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="obesidade"
+                           name="condicoes-cronicas"
+                           value="Obesidade">
+                    <label for="obesidade">Obesidade</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="neoplasia"
+                           name="condicoes-cronicas"
+                           value="Neoplasia">
+                    <label for="neoplasia">Neoplasia</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="demência"
+                           name="condicoes-cronicas"
+                           value="Demência">
+                    <label for="demência">Demência</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="epilepsia"
+                           name="condicoes-cronicas"
+                           value="Epilepsia">
+                    <label for="epilepsia">Epilepsia</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="depressão"
+                           name="condicoes-cronicas"
+                           value="Depressão">
+                    <label for="depressão">Depressão</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="doença-de-parkinson"
+                           name="condicoes-cronicas"
+                           value="Doença de Parkinson">
+                    <label for="doença-de-parkinson">Doença de Parkinson</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="dst-hiv-aids"
+                           name="condicoes-cronicas"
+                           value="DST/HIV/AIDS">
+                    <label for="dst-hiv-aids">DST/HIV/AIDS</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="amputação-de-membro"
+                           name="condicoes-cronicas"
+                           value="Amputação de Membro">
+                    <label for="amputação-de-membro">Amputação de Membro</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="tabagismo-alcoolismo-outras-drogas"
+                           name="condicoes-cronicas"
+                           value="Tabagismo/Alcoolismo/Outras Drogas">
+                    <label for="tabagismo-alcoolismo-outras-drogas">Tabagismo/Alcoolismo/Outras Drogas</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                           id="dor-crônica"
+                           name="condicoes-cronicas"
+                           value="Dor Crônica">
+                    <label for="dor-crônica">Dor Crônica</label>
+                </li>
+            </ul>
+        </div>
+        <!-- Pergunta 5: Medicamentos -->
+        <div class="question">
+            <label for="medicamentos">5. Quantos medicamentos o paciente utiliza regularmente?</label>
+            <input type="number" id="medicamentos" name="medicamentos" min="0" required>
+        </div>
+        <!-- Pergunta 6: Internações hospitalares -->
+        <div class="question">
+            <label for="internacoes">6. Quantas vezes o paciente foi internado nos últimos 12 meses?</label>
+            <input type="number" id="internacoes" name="internacoes" min="0" required>
+        </div>
+        <!-- Pergunta 7: Quedas -->
+        <div class="question">
+            <label for="quedas">7. O paciente sofreu alguma queda nos últimos 12 meses?</label>
+            <input type="radio" id="sim-quedas" name="quedas" value="Sim" required>
+            <label for="sim-quedas">Sim</label>
+            <br>
+            <input type="radio" id="nao-quedas" name="quedas" value="Não" required>
+            <label for="nao-quedas">Não</label>
+        </div>
+        <!-- Pergunta 8: Visão -->
+        <div class="question">
+            <label for="visao">8. O paciente apresenta alterações na visão, mesmo com uso de óculos?</label>
+            <input type="radio" id="sim-visao" name="visao" value="Sim" required>
+            <label for="sim-visao">Sim</label>
+            <br>
+            <input type="radio" id="nao-visao" name="visao" value="Não" required>
+            <label for="nao-visao">Não</label>
+        </div>
+        <!-- Pergunta 9: Audição -->
+        <div class="question">
+            <label for="audicao">9. O paciente apresenta dificuldades auditivas?</label>
+            <input type="radio" id="sim-audicao" name="audicao" value="Sim" required>
+            <label for="sim-audicao">Sim</label>
+            <br>
+            <input type="radio" id="nao-audicao" name="audicao" value="Não" required>
+            <label for="nao-audicao">Não</label>
+        </div>
+        <!-- Pergunta 10: Limitação física -->
+        <div class="question">
+            <label for="limitacao-fisica">10. O paciente apresenta alguma limitação física?</label>
+            <input type="radio"
+                   id="sim-limitacao-fisica"
+                   name="limitacao-fisica"
+                   value="Sim"
+                   required>
+            <label for="sim-limitacao-fisica">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-limitacao-fisica"
+                   name="limitacao-fisica"
+                   value="Não"
+                   required>
+            <label for="nao-limitacao-fisica">Não</label>
+        </div>
+        <!-- Pergunta 11: Cognição -->
+        <div class="question">
+            <label for="cognicao">11. O paciente apresenta alterações cognitivas ou risco de demência?</label>
+            <input type="radio" id="sim-cognicao" name="cognicao" value="Sim" required>
+            <label for="sim-cognicao">Sim</label>
+            <br>
+            <input type="radio" id="nao-cognicao" name="cognicao" value="Não" required>
+            <label for="nao-cognicao">Não</label>
+        </div>
+        <!-- Pergunta 12: Humor -->
+        <div class="question">
+            <label for="humor">12. O paciente apresenta sinais de depressão ou alterações de humor?</label>
+            <input type="radio" id="sim-humor" name="humor" value="Sim" required>
+            <label for="sim-humor">Sim</label>
+            <br>
+            <input type="radio" id="nao-humor" name="humor" value="Não" required>
+            <label for="nao-humor">Não</label>
+        </div>
+        <!-- Pergunta 13: Atividades básicas de vida diária -->
+        <div class="question">
+            <label for="atividades-basicas">13. O paciente apresenta dificuldades nas atividades básicas de vida diária?</label>
+            <input type="radio"
+                   id="sim-atividades-basicas"
+                   name="atividades-basicas"
+                   value="Sim"
+                   required>
+            <label for="sim-atividades-basicas">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-atividades-basicas"
+                   name="atividades-basicas"
+                   value="Não"
+                   required>
+            <label for="nao-atividades-basicas">Não</label>
+        </div>
+        <!-- Pergunta 14: Atividades instrumentais de vida diária -->
+        <div class="question">
+            <label for="atividades-instrumentais">
+                14. O paciente apresenta dificuldades nas atividades instrumentais de vida diária?
+            </label>
+            <input type="radio"
+                   id="sim-atividades-instrumentais"
+                   name="atividades-instrumentais"
+                   value="Sim"
+                   required>
+            <label for="sim-atividades-instrumentais">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-atividades-instrumentais"
+                   name="atividades-instrumentais"
+                   value="Não"
+                   required>
+            <label for="nao-atividades-instrumentais">Não</label>
+        </div>
+        <!-- Pergunta 15: Incontinência -->
+        <div class="question">
+            <label for="incontinencia">15. O paciente apresenta incontinência urinária e/ou fecal?</label>
+            <input type="radio"
+                   id="sim-incontinencia"
+                   name="incontinencia"
+                   value="Sim"
+                   required>
+            <label for="sim-incontinencia">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-incontinencia"
+                   name="incontinencia"
+                   value="Não"
+                   required>
+            <label for="nao-incontinencia">Não</label>
+        </div>
+        <!-- Pergunta 16: Perda de peso não intencional -->
+        <div class="question">
+            <label for="perda-peso">16. O paciente apresentou perda de peso não intencional nos últimos 3 meses?</label>
+            <input type="radio"
+                   id="sim-perda-peso"
+                   name="perda-peso"
+                   value="Sim"
+                   required>
+            <label for="sim-perda-peso">Sim</label>
+            <br>
+            <input type="radio"
+                   id="nao-perda-peso"
+                   name="perda-peso"
+                   value="Não"
+                   required>
+            <label for="nao-perda-peso">Não</label>
+        </div>
+        <!-- Pergunta 17: Abandono -->
+        <div class="question">
+            <label for="abandono">17. Há risco de negligência ou abandono do paciente?</label>
+            <input type="radio" id="sim-abandono" name="abandono" value="Sim" required>
+            <label for="sim-abandono">Sim</label>
+            <br>
+            <input type="radio" id="nao-abandono" name="abandono" value="Não" required>
+            <label for="nao-abandono">Não</label>
+            <!-- Observações adicionais -->
+            <div class="question">
+                <label for="observacoes">
+                    18. Há alguma observação adicional que o profissional de saúde gostaria de fazer sobre este paciente?
+                </label>
+                <textarea id="observacoes" name="observacoes" rows="5" cols="50"></textarea>
+            </div>
+            <div class="question">
+                <button type="submit">Calcular Pontuação</button>
+            </div>
+        </form>
+        <p id="result"></p>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('ampi-ab-form');
+
+                function prepareDataForApi(fullName, socialName, guardianName, guardianPhone, age, selfPerception, socialSupport, chronicConditions, medications, hospitalizations, falls, vision, hearing, physicalLimitation, cognition, mood, dailyBasicActivities, instrumentalDailyActivities, urinaryIncontinence, unintentionalWeightLoss, abandonmentRisk, considerations, points) {
+                    return {
+                        full_name: fullName,
+                        social_name: socialName || null,
+                        guardian_name: guardianName,
+                        guardian_phone: guardianPhone,
+                        idade: age,
+                        auto_percepcao: selfPerception,
+                        suporte_social: socialSupport,
+                        condicoes_cronicas: chronicConditions.join(', ') || '',
+                        medicamentos: parseInt(medications),
+                        internacoes: parseInt(hospitalizations),
+                        quedas: falls,
+                        visao: vision,
+                        audicao: hearing,
+                        limitacao_fisica: physicalLimitation,
+                        cognicao: cognition,
+                        humor: mood,
+                        atividades_basicas: dailyBasicActivities,
+                        atividades_instrumentais: instrumentalDailyActivities,
+                        incontinencia: urinaryIncontinence,
+                        perda_peso: unintentionalWeightLoss,
+                        abandono: abandonmentRisk,
+                        observacoes: considerations,
+                        points: points
+                    };
+                }
+
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    // Get values from form elements
+                    const nomeCompleto = document.getElementById('nome-completo').value;
+                    const nomeSocial = document.getElementById('nome-social').value;
+                    const nomeResponsavel = document.getElementById('nome-responsavel').value;
+                    const telefoneResponsavel = document.getElementById('telefone-resp').value;
+                    const idade = parseFloat(document.getElementById('idade').value);
+                    const autoPercepcao = document.querySelector('input[name="auto-percepcao"]:checked').value;
+                    const suporteSocial = document.querySelector('input[name="suporte-social"]:checked').value;
+                    const condicoesCronicas = Array.from(document.querySelectorAll('input[name="condicoes-cronicas"]:checked')).map(el => el.value);
+                    const medicamentos = document.getElementById('medicamentos').value;
+                    const internacoes = document.getElementById('internacoes').value;
+                    const quedas = document.querySelector('input[name="quedas"]:checked').value;
+                    const visao = document.querySelector('input[name="visao"]:checked').value;
+                    const audicao = document.querySelector('input[name="audicao"]:checked').value;
+                    const limitacaoFisica = document.querySelector('input[name="limitacao-fisica"]:checked').value;
+                    const cognicao = document.querySelector('input[name="cognicao"]:checked').value;
+                    const humor = document.querySelector('input[name="humor"]:checked').value;
+                    const atividadesBasicas = document.querySelector('input[name="atividades-basicas"]:checked').value;
+                    const atividadesInstrumentais = document.querySelector('input[name="atividades-instrumentais"]:checked').value;
+                    const urinaryIncontinence = document.querySelector('input[name="incontinencia"]:checked').value;
+                    const unintentionalWeightLoss = document.querySelector('input[name="perda-peso"]:checked').value;
+                    const abandonmentRisk = document.querySelector('input[name="abandono"]:checked').value;
+                    const considerations = document.getElementById('observacoes').value;
+
+                    // Calculate points (you'll need to implement this function based on your requirements)
+                    const points = calculatePoints();
+
+                    // Prepare data for API
+                    const patientData = prepareDataForApi(
+                        nomeCompleto,
+                        nomeSocial,
+                        nomeResponsavel,
+                        telefoneResponsavel,
+                        idade,
+                        autoPercepcao,
+                        suporteSocial,
+                        condicoesCronicas,
+                        medicamentos,
+                        internacoes,
+                        quedas,
+                        visao,
+                        audicao,
+                        limitacaoFisica,
+                        cognicao,
+                        humor,
+                        atividadesBasicas,
+                        atividadesInstrumentais,
+                        urinaryIncontinence,
+                        unintentionalWeightLoss,
+                        abandonmentRisk,
+                        considerations,
+                        points
+                    );
+
+                    try {
+                        const response = await fetch('/save-answers', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(patientData),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        const result = await response.json();
+                        console.log('Success:', result);
+                        alert('Dados enviados com sucesso!');
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Ocorreu um erro ao enviar os dados.');
+                    }
+                });
+            });
+            document.getElementById('ampi-ab-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const points = calculatePoints();
+                const state = points <= 5 ? 'Saudável' : points <= 10 ? 'Pré-Frágil' : 'Frágil'
+                document.getElementById('result').textContent = `Paciente ${state}. Pontuação: ${points}`;
+            });
+        </script>
+    {% endblock %}
