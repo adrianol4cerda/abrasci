@@ -3,58 +3,49 @@
 {% block content %}
     <h1>Testes de Rastreamento</h1>
     <form id="rastreamento-form">
-        <!-- Additional fields -->
+        <!-- Escala Optométrica de Snellen -->
         <div class="question">
-            <label for="nome-completo">Nome Completo:</label>
-            <input type="text" id="nome-completo" name="nome_completo" required>
-        </div>
-        <div class="question">
-            <label for="nome-social">Nome Social:</label>
-            <input type="text" id="nome-social" name="nome_social">
-        </div>
-        <div class="question">
-            <label for="nome-responsavel">Nome do Responsável:</label>
-            <input type="text" id="nome-responsavel" name="nome_responsavel">
-        </div>
-        <div class="question">
-            <label for="telefone-resp">Telefone do Responsável:</label>
-            <input type="tel" id="telefone-resp" name="telefone_resp">
-        </div>
-        <!-- Pergunta 1: Idade -->
-        <div class="question">
-            <label for="idade">1. Qual é a idade do paciente?</label>
-            <input type="number" id="idade" name="idade" required>
-        </div>
-        <!-- Pergunta 2: Auto percepção de saúde -->
-        <div class="question">
-            <label for="auto-percepcao">2. Como você percebe sua saúde atualmente?</label>
+            <label for="snellen">"O Paciente foi capaz de distinguir:"</label>
             <input type="radio"
-                   id="muito-boa"
-                   name="auto-percepcao"
-                   value="Muito boa"
+                   id="alem_8linha"
+                   name="snellen"
+                   value="Além da 8º linha"
                    required>
-            <label for="muito-boa">Muito boa</label>
-            <br>
-            <input type="radio" id="boa" name="auto-percepcao" value="Boa" required>
-            <label for="boa">Boa</label>
+            <label for="alem_8linha">Além da 8º linha</label>
             <br>
             <input type="radio"
-                   id="regular"
-                   name="auto-percepcao"
-                   value="Regular"
-                   required>
-            <label for="regular">Regular</label>
-            <br>
-            <input type="radio" id="ruim" name="auto-percepcao" value="Ruim" required>
-            <label for="ruim">Ruim</label>
+            id="ate_8linha"
+            name="snellen" 
+            value="Entre a 4º e 8º linha" 
+            required>
+            <label for="ate_8linha">Entre a 4º e 8º linha</label>
             <br>
             <input type="radio"
-                   id="muito-ruim"
-                   name="auto-percepcao"
-                   value="Muito ruim"
+                   id="ate_4linha"
+                   name="snellen"
+                   value="Até a 4º linha"
                    required>
-            <label for="muito-ruim">Muito ruim</label>
+            <label for="ate_4linha">Até a 4º linha</label>
+            <br>
         </div>
+         <!-- Teste do Sussurro -->
+        <div class="question">
+            <label for="sussurro">"O Paciente foi capaz de repetir o que foi dito?"</label>
+            <input type="radio"
+                   id="sussuro_sim"
+                   name="sussurro" 
+                   value="Sim
+                   required>
+            <label for="sussurro_sim">Sim</label>
+            <br>
+            <input type="radio" 
+            id="sussuro_nao" 
+            name="sussurro_nao" 
+            value="Não" 
+            required>
+            <label for="sussurro_nao">Nâo</label>
+            <br>
+
         <!-- Pergunta 3: Suporte social -->
         <div class="question">
             <label for="suporte-social">3. O paciente mora sozinho?</label>
